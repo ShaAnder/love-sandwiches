@@ -28,3 +28,22 @@ SHEET = GSPREAD_CLIENT.open("love_sandwiches")
 ### --- MAIN --- ###
 
 # in a real world situation we would likely have an api setup from python directly to a businesses software but as we are doing a walkthrough project we shall keep it simple and have the user input via the terminal
+
+# collect our sales data
+
+def get_sales_data():
+    """
+    Get the sales figures from the user
+    """
+
+    # instructions for user
+    print("Please enter sales data from the last market")
+    print("Data should be six numbers, separated by commas.")
+    print("Example: 10,53,23,21,15,12\n")
+
+    # get our data str, and provide feedback
+    data_str = input("Enter your data here: ")
+    print(f"The data provided is {data_str}")
+    
+# now we call our sales data function
+get_sales_data()
