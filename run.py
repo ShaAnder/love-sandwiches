@@ -17,9 +17,9 @@ SCOPE = [
 
 # create our creds constant - we create our credentials from the credentials json file
 CREDS = Credentials.from_service_account_file("creds.json")
-# our scoped credentials - this gives our credentials the scope or the sites it's allowed to access
+# our scoped credentials - gives our credentials the scope it's allowed to access
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-# now create our gspread clinet, which will do all our sheet accessing, by authorizing our scoped creds
+# now create our gspread clinet, by authorizing our scoped creds
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 # next we get our sheet constant, by telling the client to open our google sheet
 SHEET = GSPREAD_CLIENT.open("love_sandwiches")
@@ -27,7 +27,9 @@ SHEET = GSPREAD_CLIENT.open("love_sandwiches")
 
 ### --- MAIN --- ###
 
-# in a real world situation we would likely have an api setup from python directly to a businesses software but as we are doing a walkthrough project we shall keep it simple and have the user input via the terminal
+# in a real world situation we would likely have an api setup from python directly
+# to a businesses software but as we are doing a walkthrough project we shall keep
+# it simple and have the user input via the terminal
 
 # collect our sales data
 
@@ -43,7 +45,25 @@ def get_sales_data():
 
     # get our data str, and provide feedback
     data_str = input("Enter your data here: ")
-    print(f"The data provided is {data_str}")
+    
+    # get our data as a list
+    sales_data = data_str.split(",")
+    validate_data(sales_data)
+
+
+def validate_data(values):
+    """
+    Validatae our data using a try except block, will try to convert all valeus
+    into integers and will raise a value error if they cannot or if there isn't
+    exactly 6 values
+    """
+    try:
+        if len(values) != 6:
+            raise ValueError(
+                f"Exactly 6 values required, you provided {len(values)}"
+            )
+    except ValueError as e:
+        print(f"Invalid Data: {e}, please try again.\n")
     
 # now we call our sales data function
 get_sales_data()
