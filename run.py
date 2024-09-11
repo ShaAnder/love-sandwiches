@@ -1,7 +1,11 @@
+### --- IMPORTS --- ###
+
 # imports the entire gspread library
 import gspread
 #imports our service account credentials
 from google.oauth2.service_account import Credentials
+
+### --- API CALLS FOR GOOGLE SHEETS --- ###
 
 # I AM (identity and access management) scope of our code
 # in python constant vairable names (don't change) are in caps
@@ -21,15 +25,6 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("love_sandwiches")
 
 
-# now we call our different sheet tabs
-sales = SHEET.worksheet("sales")
-surplus = SHEET.worksheet("surplus")
-stock = SHEET.worksheet("stock")
+### --- MAIN --- ###
 
-# and next we want to get our data from the sheets
-data_sales = sales.get_all_values()
-data_surplus = surplus.get_all_values()
-data_stock = stock.get_all_values()
-
-# test print 
-print(data_sales)
+# in a real world situation we would likely have an api setup from python directly to a businesses software but as we are doing a walkthrough project we shall keep it simple and have the user input via the terminal
