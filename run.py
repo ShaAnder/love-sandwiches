@@ -25,7 +25,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("love_sandwiches")
 
 
-### --- MAIN --- ###
+### --- FUNCTIONS --- ###
 
 # in a real world situation we would likely have an api setup from python directly
 # to a businesses software but as we are doing a walkthrough project we shall keep
@@ -74,6 +74,31 @@ def validate_data(values):
         return False
 
     return True
-    
-# now we call our sales data function and get our data
-data = get_sales_data()
+
+def update_sales_worksheet(data):
+    """
+    Updates the sales worksheet, adds a new row with list data provided
+    """  
+    #user feedback
+    print("Updating sales worksheet... \n")
+    #get our sales worksheet
+    sales_worksheet = SHEET.worksheet("sales")
+    #now append the data (append row method)
+    sales_worksheet.append_row(data)
+    print("Sales worksheet updated successfully.\n")
+
+
+def main():
+    """
+    Run all program functions
+    """
+    # now we call our sales data function and get our data
+    data = get_sales_data()
+    # now we need to convert this data into integers once again for our spreadsheet
+    sales_data = [int(value) for value in data]
+    update_sales_worksheet(sales_data)
+
+
+### --- RUN APP --- ###
+
+main()
