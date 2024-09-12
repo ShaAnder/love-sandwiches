@@ -87,6 +87,22 @@ def update_sales_worksheet(data):
     sales_worksheet.append_row(data)
     print("Sales worksheet updated successfully.\n")
 
+def calculate_surplus(sales):
+    """
+    Compare sales and stock to calculate the surplus of each item
+
+    The surplus is defined as (stock - sales):
+        - Positive figures indicate wasted stock
+        - Negative figures indicate extra made when stock sold out
+    """
+    #user feedback 
+    print("Calculating surplus data... \n")
+    #now ew want to get our current stock using get all values
+    stock = SHEET.worksheet("stock").get_all_values()
+    #now we get our last stock row
+    stock_row = stock[len(stock)-1]
+    print(stock_row)
+
 
 def main():
     """
@@ -96,9 +112,13 @@ def main():
     data = get_sales_data()
     # now we need to convert this data into integers once again for our spreadsheet
     sales_data = [int(value) for value in data]
+    # we want to update the sales worksheet 
     update_sales_worksheet(sales_data)
+    #and feed the sales data into the calculate surplus
+    calculate_surplus(sales_data)
 
 
 ### --- RUN APP --- ###
 
+print("Welcome to Love Sandwiches Data Automation. \n")
 main()
