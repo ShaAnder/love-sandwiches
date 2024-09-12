@@ -57,6 +57,28 @@ def get_sales_data():
 
     return sales_data
 
+def get_last_five_entries_sales():
+    """
+    Collects the last 5 columns from the sales worksheet, 
+    and returns the data in a list of lists
+    """
+    # we get our sales sheet here for manipulating
+    sales = SHEET.worksheet("sales")
+    # set our columns array
+    columns = []
+    # now we loop through and get our columns
+    for ind in range(1,7):
+        #  set the column as our sales column values
+        column = sales.col_values(ind)
+        # append the last 5 columns to the columns array
+        columns.append(column[-5:])
+    
+    # return our array of arrays
+    return columns
+
+        
+
+
 def validate_data(values):
     """
     Validatae our data using a try except block, will try to convert all valeus
@@ -131,4 +153,7 @@ def main():
 ### --- RUN APP --- ###
 
 print("Welcome to Love Sandwiches Data Automation. \n")
-main()
+# main()
+
+sales_columns = get_last_five_entries_sales()
+print(sales_columns)
