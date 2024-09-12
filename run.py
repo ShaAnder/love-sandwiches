@@ -170,9 +170,24 @@ def main():
     sales_columns = get_last_five_entries_sales()
     stock_data = calculate_stock_data(sales_columns)
     update_worksheet(stock_data, "stock")
+    return stock_data
 
 
 ### --- RUN APP --- ###
 
 print("Welcome to Love Sandwiches Data Automation. \n")
-main()
+stock_data = main()
+
+
+def get_stock_values(data):
+    """
+    Gets the stock values and headings to give the user feedback on what to
+    make for the next market
+    """
+    headings = SHEET.worksheet("stock").get_all_values()[0]
+    stock_data_dict = dict(zip(headings, data))
+    return stock_data_dict
+
+stock_values = get_stock_values(stock_data)
+print("Here are the recommended sandwich quanitites for the next market:\n")
+print(stock_values)
