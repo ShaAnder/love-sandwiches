@@ -134,6 +134,24 @@ def calculate_surplus(sales_row):
         surplus_data.append(surplus)
     return surplus_data
 
+def calculate_stock_data(data):
+    """
+    Calculate the average stock for each item type, adding 10%
+    """
+    print("Calculate stock data...\n")
+    # now we get our new stock data from looping through the columns
+    new_stock_data = []
+    # this gets the average for each column
+    for column in data:
+        int_column = [int(num) for num in column]
+        average = sum(int_column) / len(int_column)
+        # now we want 10% added onto that to account for needs
+        stock_num = (average * 1.1)
+        # now we append, and round the numbers to ensure whole numbers
+        new_stock_data.append(round(stock_num))
+    
+    return new_stock_data
+
 
 def main():
     """
@@ -148,12 +166,13 @@ def main():
     # we feed the sales data into calculate_surplus and use the return of that as our 
     # argument for updating the surplus worksheet
     update_worksheet(calculate_surplus(sales_data), "surplus")
+    # now we're calculating the stock data    
+    sales_columns = get_last_five_entries_sales()
+    stock_data = calculate_stock_data(sales_columns)
+    update_worksheet(stock_data, "stock")
 
 
 ### --- RUN APP --- ###
 
 print("Welcome to Love Sandwiches Data Automation. \n")
-# main()
-
-sales_columns = get_last_five_entries_sales()
-print(sales_columns)
+main()
