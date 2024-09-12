@@ -46,7 +46,7 @@ def get_sales_data():
         print("Example: 10,53,23,21,15,12\n")
 
         # get our data str, and provide feedback
-        data_str = input("Enter your data here: ")
+        data_str = input("Enter your data here:\n")
         
         # get our data as a list
         sales_data = data_str.split(",")
