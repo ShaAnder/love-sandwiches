@@ -75,29 +75,19 @@ def validate_data(values):
 
     return True
 
-def update_sales_worksheet(data):
+def update_worksheet(data, worksheet):
     """
-    Updates the sales worksheet, adds a new row with list data provided
-    """  
-    #user feedback
-    print("Updating sales worksheet... \n")
-    #get our sales worksheet
-    sales_worksheet = SHEET.worksheet("sales")
-    #now append the data (append row method)
-    sales_worksheet.append_row(data)
-    print("Sales worksheet updated successfully.\n")
-
-def update_surplus_worksheet(data):
-    """
-    Updates the surplus worksheet, adds a new row with list data provided
-    """  
-    #user feedback
-    print("Updating surplus worksheet... \n")
-    #get our sales worksheet
-    surplus_worksheet = SHEET.worksheet("surplus")
-    #now append the data (append row method)
-    surplus_worksheet.append_row(data)
-    print("Surplus worksheet updated successfully.\n")
+    Updates the selected worksheet with the data provided, takes the data and selected worksheet
+    as our arguments.
+    """ 
+    # user feedback
+    print(f"Updating {worksheet} worksheet... \n")
+    # get our worksheet to update
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    # now append the data (append row method)
+    worksheet_to_update.append_row(data)
+    # more user feedback
+    print(f"Updated {worksheet} worksheet successfully.\n")
 
 
 def calculate_surplus(sales_row):
@@ -132,10 +122,10 @@ def main():
     # now we need to convert this data into integers once again for our spreadsheet
     sales_data = [int(value) for value in data]
     # we want to update the sales worksheet 
-    update_sales_worksheet(sales_data)
+    update_worksheet(sales_data, "sales")
     # we feed the sales data into calculate_surplus and use the return of that as our 
     # argument for updating the surplus worksheet
-    update_surplus_worksheet(calculate_surplus(sales_data))
+    update_worksheet(calculate_surplus(sales_data), "surplus")
 
 
 ### --- RUN APP --- ###
